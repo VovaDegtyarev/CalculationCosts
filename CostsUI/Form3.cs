@@ -319,27 +319,59 @@ namespace CostsUI
             
             string select;
             select = comboBox1.SelectedItem.ToString();
+
+            for (int i = 0; i < dataGridView1.RowCount; i++)
+            {
+                if (Convert.ToBoolean(dataGridView1[0, i].Value) == true)
+                {
+                    countCheck++;
+                }
+            }
+      
             switch (select)
             {
                 case "Расходы на реализацию":
-                    for (int i = 0; i < dataGridView1.RowCount; i++)
+                    if (countCheck > 0)
                     {
-                        if (Convert.ToBoolean(dataGridView1[0, i].Value) == true)
+                        for (int i = 0; i < dataGridView1.RowCount; i++)
                         {
-                            idProduct = Convert.ToInt32(dataGridView1[3, i].Value);
-                            foreach (var empl in employeeCost)
+                            if (Convert.ToBoolean(dataGridView1[0, i].Value) == true)
                             {
-                                if (empl.idLink == idProduct)
+                                idProduct = Convert.ToInt32(dataGridView1[3, i].Value);
+                                foreach (var empl in employeeCost)
                                 {
-                                    sum += Convert.ToDouble(empl.Salary); //не уверен прибавляется ли зп в данном случае 
+                                    if (empl.idLink == idProduct)
+                                    {
+                                        sum += Convert.ToDouble(empl.Salary); //не уверен прибавляется ли зп в данном случае 
+                                    }
+                                }
+                                foreach (var costPr in costPrice)
+                                {
+                                    if (costPr.idLink == idProduct)
+                                    {
+                                        sum += Convert.ToDouble(costPr.FuelAndEnergyCosts + costPr.Transport + costPr.Other);
+                                    }
                                 }
                             }
-                            foreach (var costPr in costPrice)
+                        }
+                    }
+                    else
+                    {
+                        int selectedRowIndex = dataGridView1.SelectedCells[0].RowIndex;
+                        DataGridViewRow selectedRow = dataGridView1.Rows[selectedRowIndex];
+                        idProduct = Convert.ToInt32(selectedRow.Cells[3].Value);
+                        foreach (var empl in employeeCost)
+                        {
+                            if (empl.idLink == idProduct)
                             {
-                                if (costPr.idLink == idProduct)
-                                {
-                                    sum += Convert.ToDouble(costPr.FuelAndEnergyCosts + costPr.Transport + costPr.Other);
-                                }
+                                sum += Convert.ToDouble(empl.Salary); //не уверен прибавляется ли зп в данном случае 
+                            }
+                        }
+                        foreach (var costPr in costPrice)
+                        {
+                            if (costPr.idLink == idProduct)
+                            {
+                                sum += Convert.ToDouble(costPr.FuelAndEnergyCosts + costPr.Transport + costPr.Other);
                             }
                         }
                     }
@@ -347,24 +379,47 @@ namespace CostsUI
                     sum = 0;
                     break;
                 case "Расходы на рабочую силу":
-                    for (int i = 0; i < dataGridView1.RowCount; i++)
+                    if (countCheck > 0)
                     {
-                        if (Convert.ToBoolean(dataGridView1[0, i].Value) == true)
+                        for (int i = 0; i < dataGridView1.RowCount; i++)
                         {
-                            idProduct = Convert.ToInt32(dataGridView1[3, i].Value);
-                            foreach (var empl in employeeCost)
+                            if (Convert.ToBoolean(dataGridView1[0, i].Value) == true)
                             {
-                                if (empl.idLink == idProduct)
+                                idProduct = Convert.ToInt32(dataGridView1[3, i].Value);
+                                foreach (var empl in employeeCost)
                                 {
-                                    sum += Convert.ToDouble(empl.Salary + empl.Training);
+                                    if (empl.idLink == idProduct)
+                                    {
+                                        sum += Convert.ToDouble(empl.Salary + empl.Training);
+                                    }
+                                }
+                                foreach (var costPr in costPrice)
+                                {
+                                    if (costPr.idLink == idProduct)
+                                    {
+                                        sum += Convert.ToDouble(costPr.Other);
+                                    }
                                 }
                             }
-                            foreach (var costPr in costPrice)
+                        }
+                    }
+                    else
+                    {
+                        int selectedRowIndex = dataGridView1.SelectedCells[0].RowIndex;
+                        DataGridViewRow selectedRow = dataGridView1.Rows[selectedRowIndex];
+                        idProduct = Convert.ToInt32(selectedRow.Cells[3].Value);
+                        foreach (var empl in employeeCost)
+                        {
+                            if (empl.idLink == idProduct)
                             {
-                                if (costPr.idLink == idProduct)
-                                {
-                                    sum += Convert.ToDouble(costPr.Other);
-                                }
+                                sum += Convert.ToDouble(empl.Salary + empl.Training);
+                            }
+                        }
+                        foreach (var costPr in costPrice)
+                        {
+                            if (costPr.idLink == idProduct)
+                            {
+                                sum += Convert.ToDouble(costPr.Other);
                             }
                         }
                     }
@@ -372,25 +427,49 @@ namespace CostsUI
                     sum = 0;
                     break;
                 case "Производственная себестоимость":
-                    for (int i = 0; i < dataGridView1.RowCount; i++)
+                    if (countCheck > 0)
                     {
-                        if (Convert.ToBoolean(dataGridView1[0, i].Value) == true)
+                        for (int i = 0; i < dataGridView1.RowCount; i++)
                         {
-                            idProduct = Convert.ToInt32(dataGridView1[3, i].Value);
-                            foreach (var empl in employeeCost)
+                            if (Convert.ToBoolean(dataGridView1[0, i].Value) == true)
                             {
-                                if (empl.idLink == idProduct)
+                                idProduct = Convert.ToInt32(dataGridView1[3, i].Value);
+                                foreach (var empl in employeeCost)
                                 {
-                                    sum += Convert.ToDouble(empl.Salary + empl.Training);
+                                    if (empl.idLink == idProduct)
+                                    {
+                                        sum += Convert.ToDouble(empl.Salary + empl.Training);
+                                    }
+                                }
+                                foreach (var costPr in costPrice)
+                                {
+                                    if (costPr.idLink == idProduct)
+                                    {
+                                        sum += Convert.ToDouble(costPr.MaterilaCost + costPr.SemiFinishedProducts + costPr.FuelAndEnergyCosts +
+                                        costPr.Insurance + costPr.Sales);
+                                    }
                                 }
                             }
-                            foreach (var costPr in costPrice)
+                        }
+                    }
+                    else
+                    {
+                        int selectedRowIndex = dataGridView1.SelectedCells[0].RowIndex;
+                        DataGridViewRow selectedRow = dataGridView1.Rows[selectedRowIndex];
+                        idProduct = Convert.ToInt32(selectedRow.Cells[3].Value);
+                        foreach (var empl in employeeCost)
+                        {
+                            if (empl.idLink == idProduct)
                             {
-                                if (costPr.idLink == idProduct)
-                                {
-                                    sum += Convert.ToDouble(costPr.MaterilaCost + costPr.SemiFinishedProducts + costPr.FuelAndEnergyCosts +
-                                    costPr.Insurance + costPr.Sales);
-                                }
+                                sum += Convert.ToDouble(empl.Salary + empl.Training);
+                            }
+                        }
+                        foreach (var costPr in costPrice)
+                        {
+                            if (costPr.idLink == idProduct)
+                            {
+                                sum += Convert.ToDouble(costPr.MaterilaCost + costPr.SemiFinishedProducts + costPr.FuelAndEnergyCosts +
+                                costPr.Insurance + costPr.Sales);
                             }
                         }
                     }
@@ -399,25 +478,49 @@ namespace CostsUI
                     break;
                 case "Полная себестоимость":
                     //если кратко, то как только найдём true в checkbox запоминаем id продукта и по его связям делаем sum+= нужных значений
-                    for (int i = 0; i < dataGridView1.RowCount; i++)
+                    if (countCheck > 0)
                     {
-                        if(Convert.ToBoolean(dataGridView1[0,i].Value) == true)
+                        for (int i = 0; i < dataGridView1.RowCount; i++)
                         {
-                            idProduct = Convert.ToInt32(dataGridView1[3, i].Value);
-                            foreach (var empl in employeeCost)
+                            if (Convert.ToBoolean(dataGridView1[0, i].Value) == true)
                             {
-                                if (empl.idLink == idProduct)
+                                idProduct = Convert.ToInt32(dataGridView1[3, i].Value);
+                                foreach (var empl in employeeCost)
                                 {
-                                    sum += Convert.ToDouble(empl.Salary + empl.Training);
+                                    if (empl.idLink == idProduct)
+                                    {
+                                        sum += Convert.ToDouble(empl.Salary + empl.Training);
+                                    }
+                                }
+                                foreach (var costPr in costPrice)
+                                {
+                                    if (costPr.idLink == idProduct)
+                                    {
+                                        sum += Convert.ToDouble(costPr.MaterilaCost + costPr.SemiFinishedProducts + costPr.FuelAndEnergyCosts +
+                                        costPr.Depreciation + costPr.Insurance + costPr.Transport + costPr.Sales + costPr.Other);
+                                    }
                                 }
                             }
-                            foreach (var costPr in costPrice)
+                        }
+                    }
+                    else
+                    {
+                        int selectedRowIndex = dataGridView1.SelectedCells[0].RowIndex;
+                        DataGridViewRow selectedRow = dataGridView1.Rows[selectedRowIndex];
+                        idProduct = Convert.ToInt32(selectedRow.Cells[3].Value);
+                        foreach (var empl in employeeCost)
+                        {
+                            if (empl.idLink == idProduct)
                             {
-                                if (costPr.idLink == idProduct)
-                                {
-                                    sum += Convert.ToDouble(costPr.MaterilaCost + costPr.SemiFinishedProducts + costPr.FuelAndEnergyCosts +
-                                    costPr.Depreciation + costPr.Insurance + costPr.Transport + costPr.Sales + costPr.Other);
-                                }
+                                sum += Convert.ToDouble(empl.Salary + empl.Training);
+                            }
+                        }
+                        foreach (var costPr in costPrice)
+                        {
+                            if (costPr.idLink == idProduct)
+                            {
+                                sum += Convert.ToDouble(costPr.MaterilaCost + costPr.SemiFinishedProducts + costPr.FuelAndEnergyCosts +
+                                costPr.Depreciation + costPr.Insurance + costPr.Transport + costPr.Sales + costPr.Other);
                             }
                         }
                     }
