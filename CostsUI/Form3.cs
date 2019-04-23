@@ -23,8 +23,9 @@ namespace CostsUI
 
         public Form3()
         {
-            InitializeComponent();           
-            Task.Run(() => LoadDataFromDB());
+            InitializeComponent();
+            //Task.Run(() => LoadDataFromDB());
+            LoadDataFromDB();
         }
 
         /// <summary>
@@ -54,10 +55,10 @@ namespace CostsUI
         {
             UserContext db = new UserContext();
             db.ProductsTable.Load();
-            dataGridView1.Invoke((Action)delegate
-            {
-                dataGridView1.DataSource = db.ProductsTable.Local.ToBindingList();
-            });
+            //dataGridView1.Invoke((Action)delegate
+            //{
+            dataGridView1.DataSource = db.ProductsTable.Local.ToBindingList();
+            //});
             ColorRowsTable();
         }
 
@@ -213,6 +214,7 @@ namespace CostsUI
         /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
         {
+            textBox2.Text = "";
             ColorRowsTable();
         }
 

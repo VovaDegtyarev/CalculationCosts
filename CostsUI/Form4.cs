@@ -93,16 +93,16 @@ namespace CostsUI
             }
             //выделить в отдельный метод!!!!!!!!
             textBox1.Text = "";
-            textBox3.Text = "";
-            textBox4.Text = "";
-            textBox30.Text = "";
-            textBox31.Text = "";
-            textBox32.Text = "";
-            textBox33.Text = "";
-            textBox34.Text = "";
-            textBox35.Text = "";
-            textBox36.Text = "";
-            textBox37.Text = "";
+            textBox3.Text = "0";
+            textBox4.Text = "0";
+            textBox30.Text = "0";
+            textBox31.Text = "0";
+            textBox32.Text = "0";
+            textBox33.Text = "0";
+            textBox34.Text = "0";
+            textBox35.Text = "0";
+            textBox36.Text = "0";
+            textBox37.Text = "0";
         }
 
         /// <summary>
@@ -113,16 +113,16 @@ namespace CostsUI
         private void button2_Click(object sender, EventArgs e)
         {
             textBox1.Text = "";
-            textBox3.Text = "";
-            textBox4.Text = "";
-            textBox30.Text = "";
-            textBox31.Text = "";
-            textBox32.Text = "";
-            textBox33.Text = "";
-            textBox34.Text = "";
-            textBox35.Text = "";
-            textBox36.Text = "";
-            textBox37.Text = "";
+            textBox3.Text = "0";
+            textBox4.Text = "0";
+            textBox30.Text = "0";
+            textBox31.Text = "0";
+            textBox32.Text = "0";
+            textBox33.Text = "0";
+            textBox34.Text = "0";
+            textBox35.Text = "0";
+            textBox36.Text = "0";
+            textBox37.Text = "0";
         }
 
         /// <summary>
@@ -137,6 +137,7 @@ namespace CostsUI
             this.WndProc(ref m);
         }
 
+        TextBox tb = null;
         /// <summary>
         /// Проверка на корректность ввода
         /// </summary>
@@ -144,8 +145,17 @@ namespace CostsUI
         /// <param name="e"></param>
         private void textBox30_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (Char.IsLetter(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+            //tb = (TextBox)sender;
+            //tb.Text = tb.Text.Replace(".", ",");
+            //if (Char.IsLetter(e.KeyChar) && e.KeyChar != (char)Keys.Back && e.KeyChar != 46)
+            //{
+            //    e.Handled = true;
+            //}
+            char number = e.KeyChar;
+            if ((e.KeyChar <= 47 || e.KeyChar >= 58) && number != 8 && number != 44)
+            {
                 e.Handled = true;
+            }
         }
     }
 }

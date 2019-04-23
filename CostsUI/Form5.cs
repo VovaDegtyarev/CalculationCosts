@@ -75,6 +75,11 @@ namespace CostsUI
             if (idprod >= 0)
             {
                 Product product = db.ProductsTable.Find(idprod);
+                if (string.IsNullOrWhiteSpace(textBox1.Text))
+                {
+                    MessageBox.Show("Введите имя!");
+                    return;
+                }
                 product.ProductName = textBox1.Text;
                 product.Date = dateTimePicker1.Value;
                 foreach (var empl in employeeCost)
@@ -159,6 +164,20 @@ namespace CostsUI
             base.Capture = false;
             Message m = Message.Create(base.Handle, 0xa1, new IntPtr(2), IntPtr.Zero);
             this.WndProc(ref m);
+        }
+
+        /// <summary>
+        /// Проверка на корректность ввода данных
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox30_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char number = e.KeyChar;
+            if ((e.KeyChar <= 47 || e.KeyChar >= 58) && number != 8 && number != 44)
+            {
+                e.Handled = true;
+            }
         }
     }
 }
