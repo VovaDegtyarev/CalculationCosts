@@ -24,7 +24,7 @@ namespace CostsUI
         public Form3()
         {
             InitializeComponent();           
-            LoadDataFromDB();
+            Task.Run(() => LoadDataFromDB());
         }
 
         /// <summary>
@@ -54,7 +54,10 @@ namespace CostsUI
         {
             UserContext db = new UserContext();
             db.ProductsTable.Load();
-            dataGridView1.DataSource = db.ProductsTable.Local.ToBindingList();
+            dataGridView1.Invoke((Action)delegate
+            {
+                dataGridView1.DataSource = db.ProductsTable.Local.ToBindingList();
+            });
             ColorRowsTable();
         }
 
@@ -220,6 +223,7 @@ namespace CostsUI
         /// <param name="e"></param>
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            db = new UserContext();
             int idProduct = -1;
             var employeeCost = db.EmoloyeeCostsTable;
             var costPrice = db.CostPricesTable;

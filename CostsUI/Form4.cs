@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CostsUI
-{   
+{
     /// <summary>
     /// Класс обработки добавления
     /// </summary>
@@ -52,13 +52,13 @@ namespace CostsUI
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
-            if(string.IsNullOrWhiteSpace(textBox1.Text))
+            if (string.IsNullOrWhiteSpace(textBox1.Text))
             {
                 MessageBox.Show("Введите название продукта!");
                 return;
             }
             else
-            {   
+            {
                 //создание нового продукта
                 Product newProduct = new Product();
                 newProduct.ProductName = textBox1.Text;
@@ -84,7 +84,7 @@ namespace CostsUI
                 newEmployeeCosts.Training = Convert.ToDouble(textBox4.Text);
                 newEmployeeCosts.idLink = newProduct.id;
 
-                
+
                 db.CostPricesTable.Add(newCostPrice);
                 db.EmoloyeeCostsTable.Add(newEmployeeCosts);
                 db.SaveChanges();
@@ -135,6 +135,17 @@ namespace CostsUI
             base.Capture = false;
             Message m = Message.Create(base.Handle, 0xa1, new IntPtr(2), IntPtr.Zero);
             this.WndProc(ref m);
+        }
+
+        /// <summary>
+        /// Проверка на корректность ввода
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox30_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsLetter(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+                e.Handled = true;
         }
     }
 }

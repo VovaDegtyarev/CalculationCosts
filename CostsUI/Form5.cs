@@ -83,6 +83,8 @@ namespace CostsUI
                     {
                         empl.Salary = Convert.ToDouble(textBox3.Text);
                         empl.Training = Convert.ToDouble(textBox4.Text);
+                        textBox3.Text = "0";
+                        textBox4.Text = "0";
                     }
                 }
                 foreach (var costPr in costPrice)
@@ -97,6 +99,14 @@ namespace CostsUI
                         costPr.Transport = Convert.ToDouble(textBox35.Text);
                         costPr.Sales = Convert.ToDouble(textBox36.Text);
                         costPr.Other = Convert.ToDouble(textBox37.Text);
+                        textBox30.Text = "0";
+                        textBox31.Text = "0";
+                        textBox32.Text = "0";
+                        textBox33.Text = "0";
+                        textBox34.Text = "0";
+                        textBox35.Text = "0";
+                        textBox36.Text = "0";
+                        textBox37.Text = "0";
                     }
                 }
                 db.SaveChanges();
