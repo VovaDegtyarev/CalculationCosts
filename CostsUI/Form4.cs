@@ -137,7 +137,6 @@ namespace CostsUI
             this.WndProc(ref m);
         }
 
-        TextBox tb = null;
         /// <summary>
         /// Проверка на корректность ввода
         /// </summary>
